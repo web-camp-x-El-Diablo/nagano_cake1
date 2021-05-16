@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  root to: "homes#top"
+  get "homes/about" => "homes#about"
+
   devise_scope :admin do
     get '/admin/sign_in' => "admin/sessions#new", as: :new_admin_session
     post '/admin/sign_in' => "admin/sessions#create", as: :admin_session
@@ -8,7 +11,7 @@ Rails.application.routes.draw do
 
 
   devise_for :customers
-  
+
   get '/orders/thanks' => "orders#thanks"
   post '/orders/confirm' => "orders#confirm"
   delete '/cart_products/destroy_all' => "cart_products#destroy_all"
@@ -16,9 +19,6 @@ Rails.application.routes.draw do
   get '/customers/unsubscribe' => "customers#unsubscribe"
 
   resource :customers, only: [:show, :edit, :update]
-
-  root to: "homes#top"
-  get "homes/about" => "homes#about"
 
   resources :products, only: [:index, :show]
 
